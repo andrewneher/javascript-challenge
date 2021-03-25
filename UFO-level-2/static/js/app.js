@@ -2,8 +2,7 @@
 var tableData = data;
 
 
-
-// build table
+// build table function
 
 function buildTable(data) {
     var tableBody = d3.select("tbody");
@@ -19,26 +18,36 @@ function buildTable(data) {
 
 buildTable(tableData);
 
+// create filter
 
+var filter = {};
 
-// return filtered datetime
-
-function clickButton() {
-    var dateTime = d3.select("#datetime").property("value");
-    var filterData = tableData;
-    filterData = filterData.filter(dataRow => dataRow.datetime === dateTime);
-    buildTable(filterData);
-
+function createFilter() {
+    var element = d3.select(this).select("input");
+    var elementValue = element.property("value");
+    var id = element.attr("id");
+    if(element) {
+        filter [id] = elementValue;
+    }
+    else {
+        delete filter [id];
+    }
+    console.log(filter);
+    filterTable();
 }
 
-// on click
+// filter table results
 
-d3.selectAll("#filter-btn").on("click", clickButton);
+function filterTable() {
+    var filterData = tableData;
+    Object.entries(filter).forEach(([key, value]) => {
+        filterData = filterData.filter(rowData => rowData[key] == value);
+        console.log(filterData);
+    })
+    buildTable(filterData);
+}
 
-
-
-
-
+d3.selectAll(".filter").on("change", createFilter);
 
 
 
