@@ -65,6 +65,12 @@ body {
   margin-top: 10px;
 }
 
+.filters2 {
+  padding: 20px;
+  font-size: 0.8em;
+  margin-top: 10px;
+}
+
 select {
   display: block;
   width: 100%;
